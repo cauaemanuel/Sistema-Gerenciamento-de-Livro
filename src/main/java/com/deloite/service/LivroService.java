@@ -2,24 +2,21 @@ package com.deloite.service;
 
 import com.deloite.entity.Livro;
 import com.deloite.entity.dto.LivroDTO;
-import com.deloite.entity.dto.map.LivroMapper;
+import com.deloite.entity.dto.map.LivroFactory;
 import com.deloite.repository.LivroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LivroService {
 
-    @Autowired
-    private LivroMapper livroMapper;
     private LivroRepository livroRepository;
 
-    public LivroService(LivroMapper livroMapper, LivroRepository livroRepository) {
-        this.livroMapper = livroMapper;
+    public LivroService(LivroRepository livroRepository) {
         this.livroRepository = livroRepository;
     }
 
@@ -28,11 +25,12 @@ public class LivroService {
     }
 
     public Livro save(LivroDTO livro) {
-        var livroEntity = livroMapper.livroDtoToLivro(livro);
+        var livroEntity = LivroFactory.fromDTO(livro);
         return livroRepository.save(livroEntity);
     }
 
-    public void removerPeloId(int id) {
+    public void removerPeloId(String idUUID) {
+        var id = UUID.fromString(idUUID);
         var userId = livroRepository.findById(id);
         if(userId.isPresent()){
             livroRepository.deleteById(id);

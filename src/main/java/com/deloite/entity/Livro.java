@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 public class Livro {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String UUID;
     private String titulo;
     private String autor;
 

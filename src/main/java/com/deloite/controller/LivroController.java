@@ -29,7 +29,7 @@ public class LivroController {
     }
 
     @DeleteMapping("/{id}")
-    public void removerPeloId(@PathVariable int id){
+    public void removerPeloId(@PathVariable String id){
         livroService.removerPeloId(id);
     }
 }
