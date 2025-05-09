@@ -30,7 +30,8 @@ public class LivroService {
     }
 
     public void removerPeloId(String idUUID) {
-        var id = UUID.fromString(idUUID);
+
+        UUID id = UUID.fromString(idUUID);
         var userId = livroRepository.findById(id);
         if(userId.isPresent()){
             livroRepository.deleteById(id);
