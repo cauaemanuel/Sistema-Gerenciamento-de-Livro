@@ -4,6 +4,7 @@ import com.deloite.entity.Livro;
 import com.deloite.entity.dto.LivroDTO;
 import com.deloite.service.LivroService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,8 @@ public class LivroController {
 
     @PostMapping
     public ResponseEntity<Livro> adicionarLivro(@RequestBody @Valid LivroDTO livro){
-        return ResponseEntity.ok(livroService.save(livro));
+        Livro lv = livroService.save(livro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(lv);
     }
 
     @DeleteMapping("/{id}")
